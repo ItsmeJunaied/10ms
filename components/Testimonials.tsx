@@ -53,17 +53,17 @@ const Testimonials = () => {
                 </div>
                 <div className="relative">
                   {playingId === item.id && item.video_url ? (
-                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black bg-opacity-80 rounded-lg">
+                    <div className="relative w-full h-48 rounded-lg overflow-hidden">
                       <iframe
-                        src={`https://www.youtube.com/embed/${item.video_url}`}
-                        className="w-full h-48 rounded-lg"
+                        src={`https://www.youtube.com/embed/${item.video_url}?autoplay=1`}
+                        className="absolute inset-0 w-full h-full rounded-lg"
                         frameBorder="0"
                         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                       ></iframe>
                       <button
                         onClick={() => setPlayingId(null)}
-                        className="absolute top-2 right-2 z-20 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center"
+                        className="absolute top-2 right-2 z-20 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-70"
                       >
                         ×
                       </button>
