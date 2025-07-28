@@ -8,25 +8,30 @@ import RelatedCourses from "@/components/related-courses";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50 ">
-      <Header />
-      <CourseHero />
-      <div className=" max-w-6xl mx-auto">
-        <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-8">
-              <CourseNavigation />
-              <CourseContent />
-            </div>
-            <div className="col-span-4">
-              <CourseSidebar />
+    <div className="relative">
+      {/* Background image behind top 300px */}
+      <div className="absolute top-0 left-0 w-full h-[300px] z-0 background-image-section"></div>
+
+      {/* Main content on top of image */}
+      <div className="relative z-10 ">
+        <div className="max-w-6xl mx-auto ">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex flex-row gap-8">
+              <div className="w-2/3">
+                <CourseHero />
+                <CourseNavigation />
+                <div className=" p-6">
+                  <CourseContent />
+                </div>
+              </div>
+              <div className="w-1/3">
+                <CourseSidebar />
+              </div>
             </div>
           </div>
+          {/* <RelatedCourses /> */}
         </div>
       </div>
-
-      <RelatedCourses />
-      <Footer />
     </div>
-  )
+  );
 }

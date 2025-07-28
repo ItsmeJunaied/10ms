@@ -120,3 +120,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.background-image-section {
+  height: 250px;
+  background-image: url('https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
