@@ -68,9 +68,9 @@ export default function Home() {
 
   return (
     <div className="relative">
-<div
-  className="absolute top-0 left-0 w-full h-[300px] z-0 bg-[url('https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg')] bg-no-repeat bg-cover bg-center"
-/>
+      <div
+        className="absolute top-0 left-0 w-full h-[300px] z-0 bg-[url('/hero_bg.jpeg')] bg-no-repeat bg-cover bg-center"
+      />
 
       <div className="relative z-10 ">
         <div className="max-w-6xl mx-auto ">
