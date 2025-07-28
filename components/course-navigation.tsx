@@ -52,7 +52,7 @@ console.log(data)
   };
 
   return (
-    <div className="w-full bg-white mt-10 mb-4 sticky top-0 z-50">
+    <div className="w-full bg-white mt-20 mb-4 sticky top-0 z-50">
       <div className="flex items-center justify-center relative gap-2">
         {/* Left Arrow */}
         <button
