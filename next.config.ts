@@ -7,6 +7,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-};
+  basePath: '/10ms',};
 
 module.exports = nextConfig;
