@@ -1,9 +1,12 @@
 'use client'
 import { useGetSectionByTypeQuery } from "@/lib/ieltsApi";
+import { RootState } from "@/lib/store";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const InstructorCourse = () => {
-    const {data: instructor, isLoading, error} = useGetSectionByTypeQuery({lang: 'en', sectionType: 'instructors'})
+  const lang = useSelector((state: RootState) => state.language.lang);
+    const {data: instructor, isLoading, error} = useGetSectionByTypeQuery({lang: lang as 'en' | 'bn', sectionType: 'instructors'})
     
 
     if (isLoading) return <div>Loading instructor...</div>;
@@ -18,7 +21,7 @@ const InstructorCourse = () => {
 
           {Array.isArray(instructor.values) && instructor.values.length > 0 ? (
             instructor.values.map((inst, idx) => (
-              <div className="flex items-start space-x-4 border rounded-lg p-4 !pb-8 mb-4" key={inst.id || idx}>
+              <div className="flex items-start space-x-4 border rounded-lg p-4 !pb-6 mb-4" key={inst.id || idx}>
                 <div className="w-16 rounded-full overflow-hidden flex-shrink-0">
                   <img
                     src={inst.image || "/placeholder.svg?height=80&width=80"}

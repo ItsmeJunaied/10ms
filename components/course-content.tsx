@@ -20,6 +20,7 @@ import Testimonials from "./Testimonials";
 import ClassRequirements from "./ClassRequirements";
 import PaymentMethod from "./PaymentMethod";
 import FAQ from "./FAQ";
+import Contact_Section from "./Contact_Section";
 
 export default function CourseContent() {
   return (
@@ -59,16 +60,7 @@ export default function CourseContent() {
       <FAQ />
 
       {/* Contact Section */}
-      <div className="bg-white rounded-lg border p-6">
-        <h2 className="text-2xl font-bold mb-6">আরও কোন জিজ্ঞাসা আছে?</h2>
-
-        <div className="border border-gray-200 rounded-lg p-4 text-center">
-          <div className="flex items-center justify-center text-green-600">
-            <Phone className="h-5 w-5 mr-2" />
-            <span className="font-medium">কল করুন 16910 নম্বরে</span>
-          </div>
-        </div>
-      </div>
+      <Contact_Section />
     </div>
   );
 }

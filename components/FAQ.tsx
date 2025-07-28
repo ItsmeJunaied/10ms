@@ -9,16 +9,22 @@ import {
 import { Button } from "./ui/button";
 import { ChevronDown } from "lucide-react";
 import { useGetSectionByTypeQuery } from "@/lib/ieltsApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { t } from "@/lib/Translation";
+
 const FAQ = () => {
+  const lang = useSelector((state: RootState) => state.language.lang) as 'en' | 'bn';
+
   const {
     data: faq,
     isLoading,
     error,
-  } = useGetSectionByTypeQuery({ lang: "en", sectionType: "faq" });
+  } = useGetSectionByTypeQuery({ lang: lang, sectionType: "faq" });
 
-  if (isLoading) return <div>Loading FAQs...</div>;
-  if (error) return <div>Error loading FAQs.</div>;
-  if (!faq || !Array.isArray(faq.values)) return <div>No FAQs found.</div>;
+  if (isLoading) return <div>{t('faq.loading', lang)}</div>;
+  if (error) return <div>{t('faq.error', lang)}</div>;
+  if (!faq || !Array.isArray(faq.values)) return <div>{t('faq.noData', lang)}</div>;
 
   return (
     <div>

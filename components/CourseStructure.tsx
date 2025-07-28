@@ -3,10 +3,13 @@ import { FileText, Headphones, Play, Target, Wifi } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useGetSectionByTypeQuery } from "@/lib/ieltsApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 const CourseStructure = () => {
-  const {data: features, isLoading, error} = useGetSectionByTypeQuery({lang: 'en', sectionType: 'features'})
-  const {data: groupJoinEngagement, isLoading: groupJoinEngagementLoading, error: groupJoinEngagementError} = useGetSectionByTypeQuery({lang: 'en', sectionType: 'group_join_engagement'})
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const {data: features, isLoading, error} = useGetSectionByTypeQuery({lang: lang as 'en' | 'bn', sectionType: 'features'})
+  const {data: groupJoinEngagement, isLoading: groupJoinEngagementLoading, error: groupJoinEngagementError} = useGetSectionByTypeQuery({lang: lang as 'en' | 'bn', sectionType: 'group_join_engagement'})
 
 
   if (isLoading) return <div>Loading course structure...</div>;

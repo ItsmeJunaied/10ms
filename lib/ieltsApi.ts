@@ -1,5 +1,6 @@
 // api/ieltsCourseApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { RootState } from './store';
 
 // Define TypeScript interfaces for the API response
 interface MediaItem {
@@ -25,6 +26,21 @@ interface Section {
   order_idx: number;
   values: any[];
 }
+interface SeoData {
+  defaultMeta: Array<{
+    content: string;
+    type: string;
+    value: string;
+  }>;
+  description: string;
+  keywords: string[];
+  schema: Array<{
+    meta_name: string;
+    meta_value: string;
+    type: string;
+  }>;
+  title: string;
+}
 
 interface CourseData {
   slug: string;
@@ -34,7 +50,7 @@ interface CourseData {
   media: MediaItem[];
   checklist: ChecklistItem[];
   sections: Section[];
-  // Include other fields from your API response as needed
+
 }
 
 export const ieltsCourseApi = createApi({
@@ -95,14 +111,33 @@ export const ieltsCourseApi = createApi({
       transformResponse: (response: any, _, args) => 
         response.data.sections.find((section: Section) => section.type === args.sectionType),
     }),
+
+    getSectionTypes: builder.query<string[], { lang: 'en' | 'bn' }>({
+      query: ({ lang }) => ({
+        url: 'ielts-course',
+        params: { lang },
+      }),
+      transformResponse: (response: any) => {
+        return response.data.sections.map((section: Section) => section.name);
+      },
+    }),
+
+    getCourseSeo: builder.query<SeoData, { lang: 'en' | 'bn' }>({
+      query: ({ lang }) => ({
+        url: 'ielts-course',
+        params: { lang },
+      }),
+      transformResponse: (response: any) => response.data.seo,
+    }),
   }),
 });
 
-// Export hooks for usage in components
 export const {
   useGetCourseDataQuery,
   useGetCourseBasicInfoQuery,
   useGetCourseMediaQuery,
   useGetCourseChecklistQuery,
   useGetSectionByTypeQuery,
+  useGetSectionTypesQuery,
+  useGetCourseSeoQuery
 } = ieltsCourseApi;

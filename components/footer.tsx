@@ -1,7 +1,13 @@
-import Image from "next/image"
-import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react"
+'use client'
+import Image from "next/image";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/lib/store';
+import { t } from "@/lib/Translation";
 
 export default function Footer() {
+  const lang = useSelector((state: RootState) => state.language.lang) as 'en' | 'bn';
+
   return (
     <footer className="bg-white ">
       <div className="container mx-auto px-4 py-12">
@@ -10,51 +16,51 @@ export default function Footer() {
           <div className="space-y-6">
             <div>
               <Image src="/10ms-logo.svg" alt="10 Minute School" width={120} height={40} className="h-8 w-auto mb-4" />
-              <p className="text-gray-600 text-sm">দেশের সবচেয়ে বড় অনলাইন শিক্ষা প্ল্যাটফর্ম</p>
+              <p className="text-gray-600 text-sm">{t('footer.tagline', lang)}</p>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <img src="/placeholder.svg?height=40&width=135" alt="Google Play" className="h-10" />
+            <div className="flex flex-row space-x-2">
+              <div className="flex flex-row items-center space-x-2">
+                <img src="/ios-store-icon.jfif" alt="Google Play" className="h-10" />
               </div>
               <div className="flex items-center space-x-2">
-                <img src="/placeholder.svg?height=40&width=135" alt="App Store" className="h-10" />
+                <img src="/google-play-icon.jfif" alt="App Store" className="h-10" />
               </div>
             </div>
           </div>
 
           {/* Company Links */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">কোম্পানি</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">{t('footer.company.title', lang)}</h3>
             <ul className="space-y-3 text-sm text-gray-600">
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  ক্যারিয়ার / নিয়োগ বিজ্ঞপ্তি
+                  {t('footer.company.career', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  শিক্ষক হিসেবে যোগ দিন
+                  {t('footer.company.joinAsTeacher', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  অ্যাফিলিয়েট হিসেবে যোগ দিন
+                  {t('footer.company.joinAsAffiliate', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  প্রাইভেসি পলিসি
+                  {t('footer.company.privacyPolicy', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  রিফান্ড পলিসি
+                  {t('footer.company.refundPolicy', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  ব্যবহারকারীর শর্তাবলী
+                  {t('footer.company.termsOfUse', lang)}
                 </a>
               </li>
             </ul>
@@ -62,36 +68,36 @@ export default function Footer() {
 
           {/* Other Links */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">অন্যান্য</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">{t('footer.others.title', lang)}</h3>
             <ul className="space-y-3 text-sm text-gray-600">
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  ব্লগ
+                  {t('footer.others.blog', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  বুক স্টোর
+                  {t('footer.others.bookStore', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  ফ্রি নোটস ও গাইড
+                  {t('footer.others.freeNotes', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  চাকরির প্রস্তুতি কোর্সসমূহ
+                  {t('footer.others.jobPrep', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  স্যাটেলাইট স্কুলসমূহ
+                  {t('footer.others.satelliteSchools', lang)}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-900">
-                  ফ্রি ভর্তিকোচিং
+                  {t('footer.others.freeAdmission', lang)}
                 </a>
               </li>
             </ul>
@@ -99,19 +105,19 @@ export default function Footer() {
 
           {/* Contact Information */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">আমাদের যোগাযোগের মাধ্যম</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">{t('footer.contact.title', lang)}</h3>
             <div className="space-y-3 text-sm text-gray-600">
               <div>
-                <p className="font-medium">কল করুন: 16910 (24x7)</p>
+                <p className="font-medium">{t('footer.contact.call', lang)}</p>
               </div>
               <div>
-                <p className="font-medium">হোয়াটসঅ্যাপ: +8801896016252(24x7)</p>
+                <p className="font-medium">{t('footer.contact.whatsapp', lang)}</p>
               </div>
               <div>
-                <p className="font-medium">ফেসবুক মেসেজ লিংক: +880 9610916910</p>
+                <p className="font-medium">{t('footer.contact.facebook', lang)}</p>
               </div>
               <div>
-                <p className="font-medium">ইমেইল: support@10minuteschool.com</p>
+                <p className="font-medium">{t('footer.contact.email', lang)}</p>
               </div>
 
               <div className="flex space-x-3 pt-4">
@@ -139,9 +145,9 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="border-t mt-8 pt-6 text-center">
-          <p className="text-gray-600 text-sm">স্বত্ব © ২০১৫ - ২০২৪ টেন মিনিট স্কুল কর্তৃক সর্বস্বত্ব সংরক্ষিত</p>
+          <p className="text-gray-600 text-sm">{t('footer.copyright', lang)}</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

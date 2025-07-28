@@ -1,10 +1,14 @@
 'use client'
 import { useGetSectionByTypeQuery } from "@/lib/ieltsApi";
+import { RootState } from "@/lib/store";
 import { Check } from "lucide-react";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const CourseLearningOutcomes = () => {
-  const {data: pointers, isLoading, error} = useGetSectionByTypeQuery({lang: 'en', sectionType: 'pointers'})
+  const lang = useSelector((state: RootState) => state.language.lang);
+
+  const {data: pointers, isLoading, error} = useGetSectionByTypeQuery({lang: lang as 'en' | 'bn', sectionType: 'pointers'})
 
   if (isLoading) return <div>Loading learning outcomes...</div>;
   if (error) return <div>Error loading learning outcomes.</div>;

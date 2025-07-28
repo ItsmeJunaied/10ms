@@ -2,17 +2,23 @@
 import { useGetSectionByTypeQuery } from '@/lib/ieltsApi';
 import { Check } from 'lucide-react';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/lib/store';
+import { t } from '@/lib/Translation';
 
 const ClassRequirements = () => {
-    const {data: requirements, isLoading, error} = useGetSectionByTypeQuery({lang: 'en', sectionType: 'requirements'})
-    if (isLoading) return <div>Loading requirements...</div>;
-    if (error) return <div>Error loading requirements.</div>;
-    if (!requirements) return <div>No requirements found.</div>;
+    const lang = useSelector((state: RootState) => state.language.lang) as 'en' | 'bn';
+    const {data: requirements, isLoading, error} = useGetSectionByTypeQuery({ lang: lang, sectionType: 'requirements' })
+    
+    if (isLoading) return <div>{t('classRequirements.loading', lang)}</div>;
+    if (error) return <div>{t('classRequirements.error', lang)}</div>;
+    if (!requirements) return <div>{t('classRequirements.noData', lang)}</div>;
+    
     return (
         <div>
             <div className="bg-white rounded-lg border p-6">
                 <h2 className="text-2xl font-bold mb-6">
-                    {requirements.name || 'ক্লাস করার জন্য প্রয়োজন হবে'}
+                    {requirements.name || t('classRequirements.title', lang)}
                 </h2>
                 <div className="space-y-3">
                     {Array.isArray(requirements.values) && requirements.values.length > 0 ? (
@@ -25,7 +31,7 @@ const ClassRequirements = () => {
                     ) : (
                         <div className="flex items-start">
                             <Check className="h-5 w-5 text-blue-500 mr-3 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">ইন্টারনেট সংযোগ (ওয়াইফাই বা মোবাইল ইন্টারনেট), স্মার্টফোন অথবা পিসি</span>
+                            <span className="text-sm">{t('classRequirements.defaultRequirement', lang)}</span>
                         </div>
                     )}
                 </div>

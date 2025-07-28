@@ -3,9 +3,13 @@ import { useGetSectionByTypeQuery } from "@/lib/ieltsApi";
 import { Check } from "lucide-react";
 import React from "react";
 import { Separator } from "./ui/separator";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 const ExclusiveFeatures = () => {
-    const {data: exclusive_features, isLoading, error} = useGetSectionByTypeQuery({lang: 'en', sectionType: 'feature_explanations'})
+  const lang = useSelector((state: RootState) => state.language.lang) as 'en' | 'bn';
+
+    const {data: exclusive_features, isLoading, error} = useGetSectionByTypeQuery({lang: lang, sectionType: 'feature_explanations'})
 
     if (isLoading) return <div>Loading exclusive features...</div>;
     if (error) return <div>Error loading exclusive features.</div>;
@@ -21,7 +25,7 @@ const ExclusiveFeatures = () => {
               <React.Fragment key={feature.id}>
                 <div className="grid grid-cols-12 gap-4 p-4 ">
                   <div className="col-span-8">
-                    <h3 className="font-semibold mb-2">{feature.title}</h3>
+                    <h3 className=" mb-2">{feature.title}</h3>
                     <div className="space-y-2 text-sm text-gray-600">
                       {Array.isArray(feature.checklist) && feature.checklist.map((item: string, idx: number) => (
                         <div className="flex items-center" key={idx}>
@@ -36,7 +40,7 @@ const ExclusiveFeatures = () => {
                       <img
                         src={feature.file_url}
                         alt={feature.title}
-                        className="w-32 h-32 rounded-lg object-cover"
+                        className=" object-cover"
                       />
                     )}
                   </div>

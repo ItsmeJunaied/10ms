@@ -3,11 +3,15 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { ChevronRight, ChevronLeft, Play } from "lucide-react";
 import { useGetSectionByTypeQuery } from "@/lib/ieltsApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 const CARDS_PER_SLIDE = 2;
 
 const Testimonials = () => {
-  const {data: testimonials, isLoading, error} = useGetSectionByTypeQuery({lang: 'en', sectionType: 'testimonials'})
+  const lang = useSelector((state: RootState) => state.language.lang) as 'en' | 'bn';
+
+  const {data: testimonials, isLoading, error} = useGetSectionByTypeQuery({lang: lang, sectionType: 'testimonials'})
   const [slide, setSlide] = useState(0);
   const [playingId, setPlayingId] = useState<string | null>(null);
 

@@ -2,16 +2,20 @@
 import { Star, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useGetCourseDataQuery } from "@/lib/ieltsApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { translations } from "@/lib/Translation";
 
 export default function CourseHero() {
-  const { data, isLoading, error } = useGetCourseDataQuery({ lang: 'en' });
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const { data, isLoading, error } = useGetCourseDataQuery({ lang: lang as 'en' | 'bn' });
 
   if (isLoading) return <div>Loading instructors...</div>;
   if (error) return <div>Error loading instructors</div>;
 
   const title = data?.title || '';
   const description = data?.description || '';
-
+  const ratingText = translations.ratingText[lang as keyof typeof translations.ratingText];
   return (
     <div className="   text-white">
       <div className="max-w-6xl mx-auto px-4 py-8">
@@ -25,7 +29,7 @@ export default function CourseHero() {
                   <Star key={star} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <span className="ml-2 text-xs">(৮১.৮% শিক্ষার্থী কোর্স রেটিং ৪ এবং তার বেশি দিয়েছেন)</span>
+              <span className="ml-2 text-xs">{ratingText}</span>
             </div>
             <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: description }} />
           </div>

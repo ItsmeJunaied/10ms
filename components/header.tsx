@@ -1,9 +1,15 @@
+"use client"
 import Image from "next/image"
 import { Search, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleLanguage } from '@/lib/languageSlice';
+import type { RootState } from '@/lib/store';
 
 export default function Header() {
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const dispatch = useDispatch();
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4">
@@ -46,7 +52,9 @@ export default function Header() {
               <option>আরও</option>
             </select>
             <div className="flex items-center space-x-2">
-              <span className="text-sm">EN</span>
+              <span className="text-sm cursor-pointer select-none" onClick={() => dispatch(toggleLanguage())}>
+                {lang === 'bn' ? 'BN' : 'EN'}
+              </span>
               <div className="flex items-center text-green-600">
                 <Phone className="h-4 w-4 mr-1" />
                 <span className="text-sm">16910</span>

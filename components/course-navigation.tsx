@@ -1,16 +1,14 @@
 'use client'
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const tabs = [
-  "সিটি করে যা শিখবেন",
-  "কোর্স সম্পর্কে বিস্তারিত",
-  "কোর্স এক্সক্লুসিভ ফিচার",
-  "এই কোর্সের সাথে ফ্রি পাচ্ছেন-",
-  "শিক্ষার্থী রিভিউ"
-];
+import { useGetCourseDataQuery, useGetSectionTypesQuery } from "@/lib/ieltsApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 export default function CourseNavigation() {
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const { data, isLoading, error } = useGetSectionTypesQuery({ lang: lang as 'en' | 'bn' });
+console.log(data)
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollAmount = 200;
 
@@ -23,7 +21,6 @@ export default function CourseNavigation() {
     }
   };
 
-  // Enable mouse drag to scroll
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
@@ -47,8 +44,15 @@ export default function CourseNavigation() {
     scrollRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
+  const handleTabClick = (type: string) => {
+    const section = document.getElementById(type);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
-    <div className="w-full bg-transparent mt-10 mb-4">
+    <div className="w-full bg-white mt-10 mb-4 sticky top-0 z-50">
       <div className="flex items-center justify-center relative gap-2">
         {/* Left Arrow */}
         <button
@@ -69,16 +73,19 @@ export default function CourseNavigation() {
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
         >
-          {tabs.map((tab, idx) => (
+          {isLoading && <span>Loading...</span>}
+          {error && <span>Error loading sections</span>}
+          {data && data.map((section, idx) => (
             <button
-              key={tab}
+              key={section}
+              onClick={() => handleTabClick(section)}
               className={`text-base px-1 whitespace-nowrap pb-2 font-medium transition-colors ${
                 idx === 0
                   ? "text-gray-900 border-b-2 border-[#1CAB55] font-semibold"
                   : "text-gray-500 hover:text-gray-900"
               }`}
             >
-              {tab}
+              {section}
             </button>
           ))}
         </div>
